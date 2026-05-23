@@ -105,6 +105,7 @@ export default function Calculator({ value, onChange, onClose }) {
             <div key={ri} className="calc-row">
               {row.map(btn => (
                 <button
+                  type="button"
                   key={btn + ri}
                   className={`calc-btn
                     ${['+','-','×','÷'].includes(btn) ? 'op' : ''}

@@ -56,6 +56,7 @@ export default function EditExpenseModal({ expense, onSaved, onClose }) {
             className="date-picker-input"
             calendarClassName="muji-calendar"
             todayButton="今天"
+            withPortal
           />
           <label>類別</label>
           <select value={form.category} onChange={handle('category')}>
@@ -82,7 +83,7 @@ export default function EditExpenseModal({ expense, onSaved, onClose }) {
         </div>
       </div>
 
-      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => { setShowCalc(false); setTimeout(() => descRef.current?.focus(), 50) }} />}
+      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => setShowCalc(false)} />}
       {showSplit && <SplitRatioPicker value={form.split_ratio} amount={form.amount} onConfirm={v => setForm(f => ({ ...f, split_ratio: v }))} onClose={() => setShowSplit(false)} />}
     </div>
   )

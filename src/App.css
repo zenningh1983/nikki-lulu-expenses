@@ -452,19 +452,22 @@ body {
 .calc-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(44, 40, 38, 0.3);
+  background: rgba(44, 40, 38, 0.45);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   z-index: 1000;
+  pointer-events: all;
 }
 
 .calc-modal {
   background: #faf8f5;
-  width: 100%;
-  max-width: 520px;
-  border-radius: 16px 16px 0 0;
-  padding: 16px 16px 32px;
+  width: calc(100% - 32px);
+  max-width: 360px;
+  max-height: 90svh;
+  overflow-y: auto;
+  border-radius: 14px;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;

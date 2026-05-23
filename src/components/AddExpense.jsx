@@ -52,6 +52,7 @@ export default function AddExpense({ onAdded }) {
           className="date-picker-input"
           calendarClassName="muji-calendar"
           todayButton="今天"
+          withPortal
         />
       </div>
       <div className="form-row">
@@ -66,7 +67,7 @@ export default function AddExpense({ onAdded }) {
           {form.amount ? Number(form.amount).toLocaleString() : <span className="amount-placeholder">點擊輸入金額</span>}
         </div>
       </div>
-      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => { setShowCalc(false); setTimeout(() => descRef.current?.focus(), 50) }} />}
+      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => setShowCalc(false)} />}
       <div className="form-row">
         <label>說明</label>
         <input ref={descRef} type="text" placeholder="例：英文補習費" value={form.description} onChange={handle('description')} required />

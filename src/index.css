@@ -85,6 +85,19 @@ body {
   color: #c4b5a0 !important;
 }
 
+/* Portal overlay */
+.react-datepicker__portal {
+  background: rgba(44, 40, 38, 0.45) !important;
+  z-index: 2000 !important;
+}
+
+.react-datepicker__portal .muji-calendar {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+}
+
 .muji-calendar .react-datepicker__today-button {
   background: #f0ebe4 !important;
   border-top: 1px solid #ddd8d0 !important;
