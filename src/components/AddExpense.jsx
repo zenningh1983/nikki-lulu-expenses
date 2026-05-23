@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { supabase } from '../lib/supabase'
 import Calculator from './Calculator'
@@ -15,6 +15,7 @@ export default function AddExpense({ onAdded }) {
   const [error, setError] = useState('')
   const [showCalc, setShowCalc] = useState(false)
   const [showSplit, setShowSplit] = useState(false)
+  const descRef = useRef(null)
 
   const handle = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }))
 
@@ -65,10 +66,10 @@ export default function AddExpense({ onAdded }) {
           {form.amount ? Number(form.amount).toLocaleString() : <span className="amount-placeholder">點擊輸入金額</span>}
         </div>
       </div>
-      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => setShowCalc(false)} />}
+      {showCalc && <Calculator value={form.amount} onChange={v => setForm(f => ({ ...f, amount: v }))} onClose={() => { setShowCalc(false); setTimeout(() => descRef.current?.focus(), 50) }} />}
       <div className="form-row">
         <label>說明</label>
-        <input type="text" placeholder="例：英文補習費" value={form.description} onChange={handle('description')} required />
+        <input ref={descRef} type="text" placeholder="例：英文補習費" value={form.description} onChange={handle('description')} required />
       </div>
       <div className="form-row">
         <label>拆帳比例</label>
