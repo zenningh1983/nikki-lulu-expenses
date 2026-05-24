@@ -52,7 +52,6 @@ export default function AddExpense({ onAdded }) {
           className="date-picker-input"
           calendarClassName="muji-calendar"
           todayButton="今天"
-          withPortal
         />
       </div>
       <div className="form-row">

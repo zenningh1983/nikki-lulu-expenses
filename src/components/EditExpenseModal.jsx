@@ -56,7 +56,6 @@ export default function EditExpenseModal({ expense, onSaved, onClose }) {
             className="date-picker-input"
             calendarClassName="muji-calendar"
             todayButton="今天"
-            withPortal
           />
           <label>類別</label>
           <select value={form.category} onChange={handle('category')}>
