@@ -53,6 +53,7 @@ export default function EditExpenseModal({ expense, onSaved, onClose }) {
             selected={form.date}
             onChange={d => setForm(f => ({ ...f, date: d }))}
             dateFormat="yyyy/MM/dd"
+            withPortal
             className="date-picker-input"
             calendarClassName="muji-calendar"
             todayButton="今天"

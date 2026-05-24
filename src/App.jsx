@@ -13,6 +13,7 @@ function currentYearMonth() {
 export default function App() {
   const [tab, setTab] = useState('list')
   const [yearMonth, setYearMonth] = useState(currentYearMonth)
+  const [showAdd, setShowAdd] = useState(false)
   const [expenses, setExpenses] = useState([])
   const [loading, setLoading] = useState(true)
   const fetchExpenses = useCallback(async () => {
@@ -72,7 +73,6 @@ export default function App() {
         <p className="loading">載入中...</p>
       ) : tab === 'list' ? (
         <div className="list-view">
-          <AddExpense onAdded={fetchExpenses} />
           <div className="list-header">
             <span>{monthLabel}・共 {expenses.length} 筆</span>
             <span className="list-total">NT$ {total.toLocaleString()}</span>
@@ -84,6 +84,12 @@ export default function App() {
           <MonthlySummary expenses={expenses} yearMonth={yearMonth} />
         </div>
       )}
+
+      {tab === 'list' && (
+        <button className="fab" type="button" onClick={() => setShowAdd(true)}>+</button>
+      )}
+
+      {showAdd && <AddExpense onAdded={fetchExpenses} onClose={() => setShowAdd(false)} />}
     </div>
   )
 }

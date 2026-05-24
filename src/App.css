@@ -115,7 +115,7 @@ body {
 
 /* List view */
 .list-view {
-  padding: 16px;
+  padding: 16px 16px 96px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -237,7 +237,7 @@ body {
   font-weight: 500;
 }
 
-.add-form button[type="submit"] {
+.add-submit-btn {
   background: #4a4039;
   color: #f0ebe4;
   border: none;
@@ -249,9 +249,10 @@ body {
   margin-top: 4px;
   font-family: inherit;
   letter-spacing: 1px;
+  width: 100%;
 }
 
-.add-form button[type="submit"]:disabled {
+.add-submit-btn:disabled {
   opacity: 0.5;
 }
 
@@ -448,6 +449,32 @@ body {
   font-family: inherit;
 }
 
+/* Floating add button */
+.fab {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #4a4039;
+  color: #f0ebe4;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(74, 64, 57, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.fab:active {
+  background: #3a3030;
+}
+
 /* Calculator overlay */
 .calc-overlay {
   position: fixed;
@@ -464,7 +491,7 @@ body {
   background: #faf8f5;
   width: calc(100% - 32px);
   max-width: 360px;
-  max-height: 90svh;
+  max-height: min(90svh, 90vh);
   overflow-y: auto;
   border-radius: 14px;
   padding: 20px 16px;
@@ -510,7 +537,7 @@ body {
 
 .calc-btn {
   flex: 1;
-  height: 52px;
+  height: clamp(44px, 11vw, 52px);
   border: none;
   border-radius: 8px;
   font-size: 18px;
