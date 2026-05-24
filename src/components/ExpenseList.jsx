@@ -1,6 +1,5 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
-import ConfirmDialog from './ConfirmDialog'
 import EditExpenseModal from './EditExpenseModal'
 
 const LEFT_REVEAL = 132  // edit + copy
@@ -92,7 +91,6 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
 
 export default function ExpenseList({ expenses, onDeleted }) {
   const [openId, setOpenId] = useState(null)
-  const [confirmId, setConfirmId] = useState(null)
   const [copying, setCopying] = useState(null)
   const [editingExp, setEditingExp] = useState(null)
 
@@ -111,7 +109,6 @@ export default function ExpenseList({ expenses, onDeleted }) {
 
   async function remove(id) {
     await supabase.from('expenses').delete().eq('id', id)
-    setConfirmId(null)
     onDeleted()
   }
 
@@ -130,7 +127,7 @@ export default function ExpenseList({ expenses, onDeleted }) {
             setOpenId={setOpenId}
             onEdit={setEditingExp}
             onCopy={copy}
-            onDelete={id => setConfirmId(id)}
+            onDelete={remove}
             copying={copying === exp.id}
           />
         ))}
@@ -144,13 +141,7 @@ export default function ExpenseList({ expenses, onDeleted }) {
         />
       )}
 
-      {confirmId && (
-        <ConfirmDialog
-          message="確定要刪除這筆記錄嗎？"
-          onConfirm={() => remove(confirmId)}
-          onCancel={() => setConfirmId(null)}
-        />
-      )}
+
     </>
   )
 }
