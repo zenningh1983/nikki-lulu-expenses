@@ -229,6 +229,7 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
+  flex-shrink: 0;
 }
 
 .expense-split {
@@ -586,6 +587,51 @@ body {
   gap: 8px;
 }
 
+.swipe-wrapper {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.swipe-left-actions {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 132px;
+  display: flex;
+}
+
+.swipe-right-actions {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 76px;
+  display: flex;
+}
+
+.swipe-action-btn {
+  flex: 1;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.copy-action {
+  background: #9e8c82;
+  color: #faf8f5;
+}
+
+.edit-action {
+  background: #7a6e68;
+  color: #faf8f5;
+}
+
+.delete-action {
+  background: #a05a4a;
+  color: #faf8f5;
+}
+
 .expense-item {
   background: #faf8f5;
   border-radius: 6px;
@@ -594,6 +640,9 @@ body {
   align-items: center;
   justify-content: space-between;
   border: 1px solid #ddd8d0;
+  position: relative;
+  z-index: 1;
+  touch-action: pan-y;
 }
 
 .expense-item.editing {
@@ -663,6 +712,24 @@ body {
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #c4b8b0;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.copy-btn:hover {
+  color: #7a6e68;
+}
+
+.copy-btn:disabled {
+  opacity: 0.4;
 }
 
 .edit-btn {
