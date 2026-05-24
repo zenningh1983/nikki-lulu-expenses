@@ -596,7 +596,7 @@ body {
 .swipe-left-actions {
   position: absolute;
   top: 0; bottom: 0; left: 0;
-  width: 132px;
+  width: 76px;
   display: flex;
 }
 

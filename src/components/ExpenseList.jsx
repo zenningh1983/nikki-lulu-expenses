@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 import EditExpenseModal from './EditExpenseModal'
 
-const LEFT_REVEAL = 132  // edit + copy
+const LEFT_REVEAL = 76   // copy only
 const RIGHT_REVEAL = 76  // delete
 
 function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
@@ -13,7 +13,6 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
   const baseOffset = useRef(0)
   const isOpen = openId === exp.id
 
-  // Close if another item opens
   if (!isOpen && offset !== 0) {
     setOffset(0)
   }
@@ -30,8 +29,8 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
     const dy = e.touches[0].clientY - startY.current
 
     if (!dragging.current) {
-      if (Math.abs(dy) > Math.abs(dx)) return  // vertical scroll, ignore
-      if (Math.abs(dx) < 6) return             // not enough movement yet
+      if (Math.abs(dy) > Math.abs(dx)) return
+      if (Math.abs(dx) < 6) return
       dragging.current = true
       setOpenId(exp.id)
     }
@@ -55,6 +54,11 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
     setOpenId(null)
   }
 
+  function handleClick() {
+    if (isOpen || Math.abs(offset) > 4) { close(); return }
+    onEdit(exp)
+  }
+
   const ratio = Number(exp.split_ratio ?? 50)
   const splitAmount = Math.round(Number(exp.amount) * ratio / 100)
 
@@ -62,7 +66,6 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
     <div className="swipe-wrapper">
       <div className="swipe-left-actions">
         <button className="swipe-action-btn copy-action" onPointerDown={e => e.stopPropagation()} onClick={() => { close(); onCopy(exp) }}>複製</button>
-        <button className="swipe-action-btn edit-action" onPointerDown={e => e.stopPropagation()} onClick={() => { close(); onEdit(exp) }}>修改</button>
       </div>
       <div className="swipe-right-actions">
         <button className="swipe-action-btn delete-action" onPointerDown={e => e.stopPropagation()} onClick={() => { close(); onDelete(exp.id) }}>刪除</button>
@@ -73,7 +76,7 @@ function SwipeItem({ exp, onEdit, onCopy, onDelete, openId, setOpenId }) {
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
-        onClick={() => { if (isOpen) close() }}
+        onClick={handleClick}
       >
         <div className="expense-info">
           <span className="expense-date">{exp.date}</span>
@@ -140,8 +143,6 @@ export default function ExpenseList({ expenses, onDeleted }) {
           onClose={() => setEditingExp(null)}
         />
       )}
-
-
     </>
   )
 }
