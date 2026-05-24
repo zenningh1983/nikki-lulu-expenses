@@ -130,14 +130,15 @@ export default function MonthlySummary({ expenses, yearMonth }) {
           <span>NT$ {finalClaim.toLocaleString()}</span>
         </div>
 
-        <button
-          className={`paid-toggle ${paid ? 'paid' : ''}`}
-          onClick={togglePaid}
-          disabled={toggling}
-        >
-          {paid ? '✓ 已付清' + (paidAt ? `　${new Date(paidAt).toLocaleDateString('zh-TW')}` : '') : '標記為已付清'}
-        </button>
       </div>
+
+      <button
+        className={`paid-toggle ${paid ? 'paid' : ''}`}
+        onClick={togglePaid}
+        disabled={toggling}
+      >
+        {paid ? '✓ 已付清' + (paidAt ? `　${new Date(paidAt).toLocaleDateString('zh-TW')}` : '') : '標記為已付清'}
+      </button>
 
       <button className="download-btn" onClick={downloadImage} disabled={downloading}>
         {downloading ? '處理中...' : '下載請款圖片'}
